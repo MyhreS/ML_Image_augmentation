@@ -1,52 +1,22 @@
 import imageio
-import imgaug as ia
 from imgaug import augmenters as iaa
-import matplotlib.pyplot as plt
 import os
-import numpy as np
-
-"""
-image = imageio.imread("dataset/test/AFRICAN CROWNED CRANE/1.jpg")
-plt.subplot(3,3,1)
-plt.imshow(image)
-rotate = iaa.Affine(rotate=(-25,25))
-image_aug = rotate(image=image)
-plt.subplot(3,3,2)
-plt.imshow(image_aug)
-plt.show()
-"""
-
-"""
-url = "dataset/test/AFRICAN CROWNED CRANE/"
-imageList = os.listdir(url)
 
 
-image1 = imageio.imread("dataset/test/AFRICAN CROWNED CRANE/1.jpg")
-image2 = imageio.imread("dataset/test/AFRICAN CROWNED CRANE/2.jpg")
-image3 = imageio.imread("dataset/test/AFRICAN CROWNED CRANE/3.jpg")
-images = [image1, image2, image3]
-
-rotate15 = iaa.Affine(rotate=(-15, 15))
-rotate25 = iaa.Affine(rotate=(-25, 25))
-rotate45 = iaa.Affine(rotate=(-45, 45))
-gaussian_noise = iaa.AdditiveGaussianNoise(scale=(10, 60))
-crop = iaa.Crop(percent=(0, 0.2))
-
-images_aug = rotate25(images=images)
-
-imageio.imwrite("dataset_augmented/test/1.jpg", images_aug[0])
-
-"""
 # Specify where the different classes from the original training set are
 # Specify where the diffrenet classes now containing augmented images are going to be
 # Specify what the type of img will be
-url_to_classes = "dataset/test/"
-url_to_augmented_classes = "dataset_augmented/test/"
+url_to_classes = "dataset/train/"
+url_to_augmented_classes = "dataset_augmented/train/"
 type_of_image = ".jpg"
+
+
+
+
 
 # Types of augmnentation
 seqGaussian = iaa.Sequential([
-    iaa.AdditiveGaussianNoise(scale=(10, 60)),
+    iaa.AdditiveGaussianNoise(scale=(10, 30)),
     iaa.Affine(rotate=(-200, 200))
 ])
 seqCrop = iaa.Sequential([
@@ -65,17 +35,17 @@ seqFliplrWithAll = iaa.Sequential([
     iaa.Fliplr(0.5),
     iaa.Affine(rotate=(-200, 200)),
     iaa.Crop(percent=(0, 0.2)),
-    iaa.AdditiveGaussianNoise(scale=(10, 60))
+    iaa.AdditiveGaussianNoise(scale=(10, 30))
 ])
 seqFlipudWithAll = iaa.Sequential([
     iaa.Flipud(0.5),
     iaa.Affine(rotate=(-200, 200)),
     iaa.Crop(percent=(0, 0.2)),
-    iaa.AdditiveGaussianNoise(scale=(10, 60))
+    iaa.AdditiveGaussianNoise(scale=(10, 30))
 ])
 types_of_augmentation = [
     iaa.Affine(rotate=(-200, 200)),
-    iaa.AdditiveGaussianNoise(scale=(10, 60)),
+    iaa.AdditiveGaussianNoise(scale=(10, 30)),
     iaa.Crop(percent=(0, 0.2)),
     iaa.Fliplr(0.5),
     iaa.Flipud(0.5),
